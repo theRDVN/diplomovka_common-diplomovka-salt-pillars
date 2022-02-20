@@ -30,17 +30,7 @@ saltinstall:
         - /opt/salt/common/states
       base:
         - /opt/salt/base/artifacts
-        - /opt/salt/base/formulas/salt-formula-spring-boot
-        - /opt/salt/base/formulas/salt-formula-wls
-        - /opt/salt/base/formulas/salt-formula-iptables
-        - /opt/salt/base/formulas/salt-formula-camunda
-        - /opt/salt/base/formulas/salt-formula-liquibase
-        - /opt/salt/base/formulas/salt-formula-java
-        - /opt/salt/base/formulas/salt-formula-linux-new
-        - /opt/salt/base/formulas/salt-formula-jboss-fuse
-        - /opt/salt/base/formulas/salt-formula-mock
-        - /opt/salt/base/formulas/salt-formula-consul
-        - /opt/salt/base/formulas/salt-formula-firewalld
+        - /opt/salt/base/states
     pillar_roots:
       common:
         - /opt/salt/common/pillars
@@ -73,35 +63,35 @@ saltinstall:
       gitfs_pubkey: '/root/.ssh/id_rsa_git.pub'
     ext_pillar:
       git:
-        "git@git.posam.sk:ris-ng-deploy/pillars/shared-all-salt-pillars.git":
-          env: all
-          branch: staging
-        "git@git.posam.sk:ris-ng-deploy/artifacts/psm-salt-cert-store.git":
+        "https://github.com/theRDVN/diplomovka_base-diplomovka-salt-pillars.git":
+          env: base
+          branch: master
+        "https://github.com/theRDVN/diplomovka_common-diplomovka-salt-pillars.git":
           env: all
           branch: master
-        "master git@git.posam.sk:ris-ng-common/common-psm-salt-pillars.git":
-          env: common
     gitfs_remotes:
-      "git@git.posam.sk:ris-ng-common/common-psm-salt-files.git":
-        saltenv: 
-          common:
-            branch: master
-            mountpoint: salt://files
-      "git@git.posam.sk:ris-ng-deploy/artifacts/shared-all-salt-files.git":
+      "https://github.com/theRDVN/diplomovka_salt-formula-saltmanage.git":
         saltenv:
           common:
             branch: master
             mountpoint: salt://files
-          dev:
+          base:
             branch: staging
             mountpoint: salt://files
-          edu:
+      "https://github.com/theRDVN/diplomovka_salt-formula-linux.git":
+        saltenv:
+          common:
+            branch: master
+            mountpoint: salt://files
+          base:
             branch: staging
             mountpoint: salt://files
-          perf:
-            branch: staging
+      "https://github.com/theRDVN/diplomovka_shared-all-salt-states.git":
+        saltenv:
+          common:
+            branch: master
             mountpoint: salt://files
-          int:
+          base:
             branch: staging
             mountpoint: salt://files
 
@@ -109,4 +99,3 @@ saltinstall:
     port: 8056
     ssl_crt: /etc/ssl/st2/st2.crt
     ssl_key: /etc/ssl/st2/st2.key
-
