@@ -28,12 +28,20 @@ saltinstall:
       common:
         - /opt/salt/common/artifacts
         - /opt/salt/common/states
+        - /opt/salt/formulas/diplomovka_salt-formula-linux
+        - /opt/salt/formulas/diplomovka_salt-formula-saltmanage
+        - /opt/salt/states/diplomovka_shared-all-salt-states
       base:
         - /opt/salt/base/artifacts
         - /opt/salt/base/states
+        - /opt/salt/formulas/diplomovka_salt-formula-linux
+        - /opt/salt/formulas/diplomovka_salt-formula-saltmanage
+        - /opt/salt/states/diplomovka_shared-all-salt-states
     pillar_roots:
       common:
         - /opt/salt/common/pillars
+      base:
+        - /opt/salt/base/pillars
     sudo_acl: False
     publisher_acl:
       stackstorm:
@@ -69,31 +77,6 @@ saltinstall:
         "https://github.com/theRDVN/diplomovka_common-diplomovka-salt-pillars.git":
           env: all
           branch: master
-    gitfs_remotes:
-      "https://github.com/theRDVN/diplomovka_salt-formula-saltmanage.git":
-        saltenv:
-          common:
-            branch: master
-            mountpoint: salt://files
-          base:
-            branch: staging
-            mountpoint: salt://files
-      "https://github.com/theRDVN/diplomovka_salt-formula-linux.git":
-        saltenv:
-          common:
-            branch: master
-            mountpoint: salt://files
-          base:
-            branch: staging
-            mountpoint: salt://files
-      "https://github.com/theRDVN/diplomovka_shared-all-salt-states.git":
-        saltenv:
-          common:
-            branch: master
-            mountpoint: salt://files
-          base:
-            branch: staging
-            mountpoint: salt://files
 
   salt-api:
     port: 8056
